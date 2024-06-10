@@ -138,7 +138,7 @@ def vector_change_base(n, base2):
     n is in base 10.
     '''
 
-    dig = sympy.log(n, base2) + 1
+    dig = sympy.Integer(sympy.log(n, base2)) + 1
 
     # Coefficient vector.
     coef = np.array([n for i in range(dig)])
