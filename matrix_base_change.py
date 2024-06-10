@@ -163,7 +163,6 @@ def vector_change_base(n, base2):
 
     return vec_result
 
-# WIP
 def threaded_vector_change_base_1(n, base2,*,val: float = val):
     '''
     It mixes Threads (with threading library)
