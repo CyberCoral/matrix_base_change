@@ -1,4 +1,3 @@
-
 ###
 ### Name of project: matrix_base_change.py
 ###
@@ -14,11 +13,21 @@
 
 
 import numpy as np, sympy.ntheory as synth, math, sympy
-import threading
+import threading, os
 import sympy.ntheory as synth
 
 # A constant for threaded change_base
 val = 1 / 2
+
+with open("requirements.txt","r") as f:
+    a =[f.readlines()][0]
+    a = [(lambda b,c: c[b][::-1][1:][::-1] if b != len(c) - 1 else c[b])(i, a) for i in range(len(a))]
+
+    import importlib
+    for i in range(len(a)):
+        loader = importlib.util.find_spec(a[i])
+        if loader == None:
+            os.system(f"python -m pip install {a[i]}")
 
 def scan_list(x):
     if not isinstance(x, list):
@@ -267,7 +276,7 @@ def rank_2_tensor_change_base(n: list, base2, *, array_: bool = True, thread_: b
 
     k = 1
 
-    vector = (lambda t: threaded_vector_change_base_1 if t == True else vector_base_change)(thread_)
+    vector = (lambda t: threaded_vector_change_base_1 if t == True else vector_change_base)(thread_)
 
     T_result = [vector(n[i], base2) for i in range(len(n))]
     m_result = (lambda a: list(T_result[0]) if a == False else [T_result[0]])(array_)
@@ -294,7 +303,7 @@ def vector_to_threaded_vector_change_base(n, base1, base2):
      threaded_vector_change_base to it.
      '''
      n = check_decimal_results(n, base1)
-     return threaded_vector_change_base(n, base2)
+     return threaded_vector_change_base_1(n, base2)
 
 def matrix_change_base_1(n, base1, base2):
     '''
